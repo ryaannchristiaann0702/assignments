@@ -116,3 +116,29 @@ var server = app.listen(app.get('port'), function(){
 * ```$ git commit -m "deploy to heroku"```
 * ```$ git push -u heroku master```
 * ```$ heroku open```
+
+
+//require modules
+var express = require('express');
+var path = require('path');
+//instantiate express
+var app = express();
+//set port
+app.set('port', (process.env.PORT || 5000));
+//use static files
+app.use(express.static(path.join(__dirname, 'public')));
+//express routes
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, 'views/index.html'));
+});
+app.get('/views', function(req, res){
+  res.sendFile(path.join(__dirname, 'views/full-width.html'));
+ });
+app.get('/width', function(req, res){
+  res.sendFile(path.join(__dirname, 'views/width.html'));
+ });
+
+//express server listen
+var server = app.listen(app.get('port'), function(){
+  console.log('Server listening on port 5000 ',app.get('port'));
+ });
